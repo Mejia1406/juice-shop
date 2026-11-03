@@ -1,0 +1,28 @@
+name: DevSecOps - Semgrep SAST Quality Gate
+
+on:
+  push:
+    branches: [ "fix/remediation/login", "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+
+jobs:
+  semgrep-audit:
+    name: SAST Scan (Authentication Module)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Semgrep CLI
+        run: pip install semgrep
+
+      - name: Run SAST Security Scan on Login
+        run: |
+          semgrep scan --config "p/javascript" --config "p/owasp-top-ten" --include "routes/login.ts" --error
