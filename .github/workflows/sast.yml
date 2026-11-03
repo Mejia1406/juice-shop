@@ -2,7 +2,7 @@ name: DevSecOps - Semgrep SAST Quality Gate
 
 on:
   push:
-    branches: [ "fix/remediation/login", "master", "main" ]
+    branches: [ "fix/remediation-login", "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
   workflow_dispatch:
